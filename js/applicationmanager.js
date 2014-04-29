@@ -75,8 +75,8 @@ function ApplicationManager(HTMLActuator,Renderer){
 	console.log(graphE.edges.length);
 	
 	
-	this.zoomGraphIn(graphE,4);
-	this.renderGraph(graphE);
+	this.zoomGraphIn(graphA,2);
+	this.renderGraph(graphA);
 	
 	/*
 	var graphX = 200;
