@@ -326,12 +326,12 @@ function ApplicationManager(HTMLActuator,Renderer){
 	*/
 	
 	// the first ETN of this is a complete graph with 5 nodes
-	graphA.addNNodesAsCircle(250,250,200,17);
+	graphA.addNNodesAsCircle(250,250,200,8);
 	graphA.addNode(new Node(250,250));
 
 	
-	for(var i = 0; i < 17; i++){
-		graphA.addEdge(graphA.nodes[17],graphA.nodes[i]);
+	for(var i = 0; i < 8; i++){
+		graphA.addEdge(graphA.nodes[8],graphA.nodes[i]);
 	}
 
 	
@@ -349,8 +349,9 @@ function ApplicationManager(HTMLActuator,Renderer){
 	//var graphF = graphE.genETN();
 	//console.log(graphF.edges.length);
 	
-	this.zoomGraphIn(graphB,2);
-	this.renderGraph(graphB);
+	this.zoomGraphIn(graphC,2);
+	this.renderGraph(graphC);
+	
 	
 }
 
