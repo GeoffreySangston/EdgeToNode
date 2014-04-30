@@ -8,6 +8,27 @@ Graph.prototype.addNode = function(node){
 	this.nodes.push(node);
 };
 
+Graph.prototype.addNNodesAsCircle = function(centerX,centerY,radius,n){
+	/*
+	Adds n nodes who's x,y coordinates form a circle
+	*/
+	this.shiftNodes(-centerX,-centerY);
+	for(var i = 0; i < n; i++){
+		this.nodes.push(new Node(radius*Math.cos(2*i*Math.PI/n),radius*Math.sin(2*i*Math.PI/n)));
+	}
+	
+	this.shiftNodes(centerX,centerY);
+	
+};
+
+Graph.prototype.shiftNodes = function(x,y){
+	// shifts all nodes the given amount in x and y
+	for(var i = 0; i < this.nodes.length; i++){
+		this.nodes[i].x += x;
+		this.nodes[i].y += y;
+	}
+};
+
 Graph.prototype.addEdge = function(nodeA, nodeB){
 	var newEdge;
 	if(nodeA== nodeB){
@@ -142,8 +163,10 @@ Graph.prototype._sortNodesByDegree = function(nodes,l,r){
 	this._sortNodesByDegree(nodes, left, startingIndex + length - 1);
 };
 
-Graph.prototype.generateEdgesAsNodesGraph = function(){
+Graph.prototype.genETN = function(){
 	/*
+	stands for generate Edge To Nodes graph
+	
 	returns a graph whose nodes represent the edges of this graph. Nodes have edges between them in the new graph
 	if the edges which those nodes represented were adjacent in the old graph
 	*/
@@ -177,6 +200,8 @@ Graph.prototype.generateEdgesAsNodesGraph = function(){
 			var newEdge = new Edge(newGraph.nodes[i], newGraph.nodes[adjacentEdgeIndices[j]]);
 			if(!newGraph.containsEdge(newEdge)){
 				newGraph.edges.push(newEdge);
+				newGraph.nodes[i].degree++;
+				newGraph.nodes[adjacentEdgeIndices[j]].degree++;
 			}
 		}
 	}
@@ -185,6 +210,15 @@ Graph.prototype.generateEdgesAsNodesGraph = function(){
 	
 	return newGraph;
 };
+
+Graph.prototype.calcEdgesInETN = function(){
+	var sum = 0;
+	for(var i = 0; i < this.nodes.length; i++){
+		sum += this.nodes[i].degree*(this.nodes[i].degree-1)/2;
+	}
+	return sum;
+};
+
 Graph.prototype._getAdjacentEdgeIndicesToEdge = function(baseEdge){
 	// returns an array of the indices in the original edge array of the adjacent edges
 
